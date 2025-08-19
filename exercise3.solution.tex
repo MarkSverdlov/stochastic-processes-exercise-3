@@ -1,0 +1,148 @@
+\documentclass{amsart}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsthm, amsmath, amssymb, amsfonts} % general mathmode commands
+\usepackage{bm} % for \bm
+\usepackage{stmaryrd} % for \nnearrow
+\usepackage{cancel} % for \cancel
+\usepackage{breqn} % automatic line breaks in equations
+\usepackage[margin=2.5cm]{geometry} % for page layout
+\usepackage{cancel} % for \cancel
+\usepackage{algorithm2e} % for algorithms
+\usepackage{bbm} % for \mathbbm{1}
+\usepackage{mathtools} % for \coloneq
+\usepackage{hyperref}
+\usepackage{nicefrac}
+\usepackage{float}
+\usepackage{biblatex}
+\usepackage{lipsum}
+\usepackage{placeins}
+\usepackage{booktabs}
+\usepackage{xcolor,colortbl}
+\usepackage{makecell}
+\RestyleAlgo{ruled}
+
+% \new theorems definition
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+
+\theoremstyle{definition}
+\newtheorem{definition}[section]{Definition}
+
+\theoremstyle{definition}
+\newtheorem{example}[section]{Example}
+\newtheorem{conjecture}[section]{Conjecture}
+
+\theoremstyle{remark}
+\newtheorem{remark}[section]{Remark}
+
+% \newcommand
+\DeclareMathOperator*{\argmax}{argmax}
+\DeclareMathOperator{\err}{Err}
+\DeclareMathOperator{\softmax}{softmax}
+\newcommand{\diff}{\mathrm{d}}
+\title{Exercise 3 Solution}
+\author{Mark Sverdlov \\ 323454710}
+\date{August 2025}
+
+\begin{document}
+\maketitle
+    \section{Exercise 1}
+        We consider the equation:
+        \begin{gather}
+            \label{eq:sde1}
+            \diff X_{t} = 2X_{t}\diff B_{t} \\
+            X_{0} = 3
+        \end{gather}
+        And we regard it as integral equation with the Ito interpretation. By setting \(g \left(x\right) = \log x\) we get by Ito's formula:
+        \begin{equation}
+            \label{eq:ito-formula}
+            \log X_{t} = \log X_{0} + \int \frac{\diff X_{t}}{X_{t}} - \int \frac{1}{2X_{t}^{2}} \left(\diff X_{t}\right)^{2}
+        \end{equation}
+        Where \(\left(\diff X_{t}\right)^{2}\) is interpreted by Ito's formula convention for quadric variation. By using~\eqref{eq:sde1} we get:
+        \begin{equation}
+            \label{eq:quadric-variation}
+            \left(\diff X_{t}\right)^{2} = 4X_{t}^{2} \diff t
+        \end{equation}
+        and by putting~\eqref{eq:quadric-variation} into~\eqref{eq:ito-formula} we get:
+        \begin{equation*}
+           \log X_{t} = \log X_{0} + \int \frac{\diff X_{t}}{X_{t}} -2 \int \diff t
+        \end{equation*}
+        And therefore:
+        \begin{equation}
+            \label{eq:integration}
+            \int \frac{\diff  X_{t}}{X_{t}} = \log X_{t} - \log X_{0} + 2t
+        \end{equation}
+        By rearranging~\eqref{eq:sde1} we get:
+        \begin{equation*}
+            \frac{\diff X_{t}}{X_{t}} = 2 \diff B_{t}
+        \end{equation*}
+        And by taking Ito's integral of both sides and putting in~\eqref{eq:integration} and the initial condition we get:
+        \begin{equation*}
+           \log X_{t} = \log 3 + 2 \left(B^{t}-t\right)
+        \end{equation*}
+        And so:
+        \begin{equation*}
+            X_{t} = 3 e^{2\left(B_{t}-t\right)}
+        \end{equation*}
+
+        \section{Exercise 2}
+        First, we set:
+        \begin{equation*}
+            X_{t} = \cos \left(t + B_{t}\right)
+        \end{equation*}
+        and
+        \begin{equation*}
+            g \left(x,\,y\right) = \cos \left(x + y\right)
+        \end{equation*}
+        From Ito's formula, when applied on \(g \left(t+B_{t}\right)\), we get:
+        \begin{equation*}
+            \diff  X_{t} = -\sin \left(t + B_{t}\right) \diff t -\sin \left(t + B_{t}\right) \diff  B_{t} - \frac{1}{2} \cos \left(t + B_{t}\right) \diff t
+        \end{equation*}
+        After rearranging and using the trigonometric identity \(\sin \left(t + B_{t}\right) = \sqrt{1-X_{t}^{2}}\), we get:
+        \begin{equation*}
+            \diff X_{t} = -\left(\frac{1}{2}X_{t}+\sqrt{1-X_{t}^{2}}\right)\diff t - \sqrt{1-X_{t}^{2}}\diff B_{t}
+        \end{equation*}
+        Which together with the initial condition \(X_{0}=1\) has \(X_{t}\) as a solution.
+
+        \section{Exercise 3}
+        First, Suppose:
+        \begin{gather}
+            \label{eq:sde2}
+            \diff  X_{t} = \left(\alpha-\mu X_{t}\right)\diff t + \sigma \diff B_{t} \\
+            X_{0} = \frac{\alpha}{\mu}
+        \end{gather}
+        We set:
+        \begin{equation}
+            \label{eq:Y-id}
+            Y_{t} = e^{\mu t}X_{t} - \frac{\alpha}{\mu}e^{\mu t}
+        \end{equation}
+        and by applying Ito's formula for \(g \left(x,\,y\right) = e^{\mu x}y - \frac{\alpha}{\mu}e^{\mu x}\), and \(x=t,\,y=X_{t}\) we get:
+        \begin{equation*}
+            \diff Y_{t} = \left(\mu e^{\mu t}X_{t}-\alpha e^{\mu t}\right) \diff t + e^{\mu t}\diff X_{t}
+        \end{equation*}
+        We then put in the original equation~\eqref{eq:sde2} and get:
+        \begin{equation*}
+            \diff Y_{t} = \sigma e^{\mu t}\diff B_{t}
+        \end{equation*}
+        By utilizing the initial condition that \(X_{0} = \frac{\alpha}{\mu}\) we get that \(Y_{0} = 0\), and using this we get the equation:
+        \begin{equation}
+            \label{eq:Y-char}
+            Y_{t} = \int \sigma e^{\mu t}\diff B_{t}
+        \end{equation}
+        From~\eqref{eq:Y-char} we get two important facts about \(Y_{t}\). First, since it's an indefinite Ito's integral with respect to Brownian motion, we know that it's a martingale, and in particular that \(\mathrm{E}Y_{t}=\mathrm{E}Y_{0}=0\). Additionally, we may use Ito's isometry to get:
+        \begin{equation*}
+            \mathrm{Var}Y_{t} = \mathrm{E}Y_{t}^{2} = \mathrm{E}\int_{0}^{t} \left(\sigma e^{\mu t}\right)^{2} \diff t = \frac{\sigma^{2}}{2 \mu} \left(e^{2 \mu t} - 1\right)
+        \end{equation*}
+       Finally, by rearranging~\eqref{eq:Y-id} we get:
+       \begin{equation*}
+           X_{t} = \frac{\alpha}{\mu} + e^{-\mu t}Y_{t}
+       \end{equation*}
+       and by using the facts about \(Y_{t}\) we have established above, we readily arrive at the conclusion that:
+       \begin{gather*}
+           \mathrm{E}X_{t} = \frac{\alpha}{\mu} \\
+           \mathrm{Var} X_{t} = \frac{\sigma^{2}}{2 \mu} \left(1 - e^{-2 \mu t}\right)
+       \end{gather*}
+       \end{document}
