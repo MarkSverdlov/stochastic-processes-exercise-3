@@ -43,7 +43,7 @@
 \DeclareMathOperator{\err}{Err}
 \DeclareMathOperator{\softmax}{softmax}
 \newcommand{\diff}{\mathrm{d}}
-\title{Exercise 3 Solution}
+\title{Stochastic Processes --- Exercise 3 --- Solution}
 \author{Mark Sverdlov \\ 323454710}
 \date{August 2025}
 
@@ -56,12 +56,12 @@
             \diff X_{t} = 2X_{t}\diff B_{t} \\
             X_{0} = 3
         \end{gather}
-        And we regard it as integral equation with the Ito interpretation. By setting \(g \left(x\right) = \log x\) we get by Ito's formula:
+        And we regard it as an integral equation with the Ito interpretation. We set \(g \left(x\right) = \log x\), and utilizing Ito's formula we get:
         \begin{equation}
             \label{eq:ito-formula}
-            \log X_{t} = \log X_{0} + \int \frac{\diff X_{t}}{X_{t}} - \int \frac{1}{2X_{t}^{2}} \left(\diff X_{t}\right)^{2}
+            \log X_{t} = \log X_{0} + \int \frac{\diff X_{s}}{X_{s}} - \int \frac{1}{2X_{s}^{2}} \left(\diff X_{s}\right)^{2}
         \end{equation}
-        Where \(\left(\diff X_{t}\right)^{2}\) is interpreted by Ito's formula convention for quadric variation. By using~\eqref{eq:sde1} we get:
+        Where \(\left(\diff X_{t}\right)^{2}\) is interpreted by Ito's formula convention for quadric variation, and the integral is the indefinite Ito's integral that passes through \(\left(0,\,0\right)\). By using~\eqref{eq:sde1} we get:
         \begin{equation}
             \label{eq:quadric-variation}
             \left(\diff X_{t}\right)^{2} = 4X_{t}^{2} \diff t
@@ -83,7 +83,7 @@
         \begin{equation*}
            \log X_{t} = \log 3 + 2 \left(B^{t}-t\right)
         \end{equation*}
-        And so:
+        And thus:
         \begin{equation*}
             X_{t} = 3 e^{2\left(B_{t}-t\right)}
         \end{equation*}
@@ -101,7 +101,7 @@
         \begin{equation*}
             \diff  X_{t} = -\sin \left(t + B_{t}\right) \diff t -\sin \left(t + B_{t}\right) \diff  B_{t} - \frac{1}{2} \cos \left(t + B_{t}\right) \diff t
         \end{equation*}
-        After rearranging and using the trigonometric identity \(\sin \left(t + B_{t}\right) = \sqrt{1-X_{t}^{2}}\), we get:
+        After rearranging and using the trigonometric identity \(\sin \left(x\right) = \sqrt{1-\cos^{2} \left(x\right)}\), we get:
         \begin{equation*}
             \diff X_{t} = -\left(\frac{1}{2}X_{t}+\sqrt{1-X_{t}^{2}}\right)\diff t - \sqrt{1-X_{t}^{2}}\diff B_{t}
         \end{equation*}
@@ -119,7 +119,7 @@
             \label{eq:Y-id}
             Y_{t} = e^{\mu t}X_{t} - \frac{\alpha}{\mu}e^{\mu t}
         \end{equation}
-        and by applying Ito's formula for \(g \left(x,\,y\right) = e^{\mu x}y - \frac{\alpha}{\mu}e^{\mu x}\), and \(x=t,\,y=X_{t}\) we get:
+        and by applying Ito's formula to \(g \left(x,\,y\right) = e^{\mu x}y - \frac{\alpha}{\mu}e^{\mu x}\), where \(x=t,\,y=X_{t}\) we get:
         \begin{equation*}
             \diff Y_{t} = \left(\mu e^{\mu t}X_{t}-\alpha e^{\mu t}\right) \diff t + e^{\mu t}\diff X_{t}
         \end{equation*}
