@@ -98,14 +98,27 @@
             g \left(x,\,y\right) = \cos \left(x + y\right)
         \end{equation*}
         From Ito's formula, when applied on \(g \left(t+B_{t}\right)\), we get:
-        \begin{equation*}
+        \begin{equation}
+            \label{eq:Xt}
             \diff  X_{t} = -\sin \left(t + B_{t}\right) \diff t -\sin \left(t + B_{t}\right) \diff  B_{t} - \frac{1}{2} \cos \left(t + B_{t}\right) \diff t
-        \end{equation*}
-        After rearranging and using the trigonometric identity \(\sin \left(x\right) = \sqrt{1-\cos^{2} \left(x\right)}\), we get:
+        \end{equation}
+        Then, we set \(Y_{t} = \sin \left(t+B_{t}\right)\), and by applying Ito's formula for \(Y_{t}\) we get:
+        \begin{equation}
+            \label{eq:Yt}
+            \diff Y_{t} = \left(\cos \left(t + B_{t}\right) - \frac{1}{2}\sin \left(t+B_{t}\right)\right)\diff t + \cos \left(t + B_{t}\right)\diff t
+        \end{equation}
+        And by combining the two equations~\eqref{eq:Xt} and~\eqref{eq:Yt} we get the system of equations:
         \begin{equation*}
-            \diff X_{t} = -\left(\frac{1}{2}X_{t}+\sqrt{1-X_{t}^{2}}\right)\diff t - \sqrt{1-X_{t}^{2}}\diff B_{t}
+            \begin{cases}
+            \diff X_{t} &= -\left(Y_{t} + \frac{1}{2}X_{t}\right)\diff t -Y_{t}\diff B_{t} \\
+            \diff Y_{t} &= \left(X_{t} - \frac{1}{2}Y_{t}\right)\diff t +X_{t}\diff B_{t} \\
+        \end{cases}
         \end{equation*}
-        Which together with the initial condition \(X_{0}=1\) has \(X_{t}\) as a solution.
+        Whose solution with the initial condition
+        \[
+            \left(X_{0},\,Y_{0}\right) = \left(1,\,0\right)
+        \]
+        is the stochastic 2-dimensional process \(\left(\cos \left(t + B_{t}\right),\,\sin \left(t + B_{t}\right)\right)\).
 
         \section{Exercise 3}
         First, Suppose:
